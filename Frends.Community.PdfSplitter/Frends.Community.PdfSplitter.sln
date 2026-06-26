@@ -1,20 +1,11 @@
-﻿
+
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.32112.339
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Frends.Community.PdfMerge", "Frends.Community.PdfMerge\Frends.Community.PdfMerge.csproj", "{35C305C0-8108-4A98-BB1D-AFE5C926239E}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Frends.Community.PdfMerge.Tests", "Frends.Community.PdfMerge.Tests\Frends.Community.PdfMerge.Tests.csproj", "{8CA92187-8E4F-4414-803B-EC899479022E}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Frends.Community.PdfSplitter", "Frends.Community.PdfSplitter\Frends.Community.PdfSplitter.csproj", "{A1B2C3D4-5E6F-7890-ABCD-EF1234567890}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Frends.Community.PdfSplitter.Tests", "Frends.Community.PdfSplitter.Tests\Frends.Community.PdfSplitter.Tests.csproj", "{B2C3D4E5-6F78-9012-BCDE-F23456789ABC}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{78F7F22E-6E20-4BCE-8362-0C558568B729}"
-	ProjectSection(SolutionItems) = preProject
-		README.md = README.md
-	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -22,14 +13,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{35C305C0-8108-4A98-BB1D-AFE5C926239E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{35C305C0-8108-4A98-BB1D-AFE5C926239E}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{35C305C0-8108-4A98-BB1D-AFE5C926239E}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{35C305C0-8108-4A98-BB1D-AFE5C926239E}.Release|Any CPU.Build.0 = Release|Any CPU
-		{8CA92187-8E4F-4414-803B-EC899479022E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{8CA92187-8E4F-4414-803B-EC899479022E}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{8CA92187-8E4F-4414-803B-EC899479022E}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{8CA92187-8E4F-4414-803B-EC899479022E}.Release|Any CPU.Build.0 = Release|Any CPU
 		{A1B2C3D4-5E6F-7890-ABCD-EF1234567890}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{A1B2C3D4-5E6F-7890-ABCD-EF1234567890}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A1B2C3D4-5E6F-7890-ABCD-EF1234567890}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -43,6 +26,6 @@ Global
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {55BC6629-85C9-48D8-8CA2-B0046AF1AF4B}
+		SolutionGuid = {B4C2D3E5-8A7B-5C9E-0G1H-2I3J4K5L6M70}
 	EndGlobalSection
 EndGlobal

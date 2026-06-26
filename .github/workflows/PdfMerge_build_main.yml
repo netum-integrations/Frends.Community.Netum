@@ -1,0 +1,58 @@
+name: Build main
+
+on:
+  push:
+    branches:    
+      - main
+    paths:
+      - 'Frends.Community.PdfMerge/**'
+
+jobs:
+  build:
+    name: ReleaseTheTask
+    runs-on: windows-latest
+    
+    steps:
+    - uses: actions/checkout@v1
+
+    - name: Setup .NET SDK
+      uses: actions/setup-dotnet@v4.3.1
+      with:
+        dotnet-version: '8.0'
+
+    - name: Build
+      run: dotnet build
+        
+    - name: Test
+      run: dotnet test
+
+    - name: Pack release version of task
+      run: dotnet pack --configuration Release 
+      
+    - name: Get package name
+      id: package_name
+      run: |
+        $pkg = Get-ChildItem -Path . -Filter *.nupkg -Exclude *.symbols.nupkg -Recurse | Select-Object -First 1
+        echo "full_name=$($pkg.FullName)" >> $env:GITHUB_OUTPUT
+        echo "base_name=$($pkg.BaseName)" >> $env:GITHUB_OUTPUT
+      
+    - name: Push to Frends Community Main Feed
+      shell: bash
+      run: |       
+        curl -X POST "${{ secrets.COMMUNITY_TASKS_API }}?feed_type=main" \
+          -H "x-api-key: ${{ secrets.FRENDS_COMMUNITY_TASKS_API_KEY }}" \
+          -H "Content-Type: application/octet-stream" \
+          --data-binary @"${{ steps.package_name.outputs.full_name }}"
+
+    - name: Create Release
+      id: create_release
+      uses: actions/create-release@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        tag_name: ${{ steps.package_name.outputs.base_name }}
+        release_name: Release ${{ steps.package_name.outputs.base_name }}
+        body: |
+          You can install the task via frends UI Task View or you can find the NuGet at https://feeds.dev.azure.com/frends-platform/frends-tasks/_apis/packaging/Feeds/community-main/packages
+        draft: false
+        prerelease: false

@@ -10,10 +10,7 @@ using PdfSharp.Pdf.IO;
 [TestFixture]
 internal class UnitTests
 {
-
-    /// <summary>
-    /// Test splitting a multi-page PDF file and check that the ouput contains the correct number of pages and that each page is valid PDF data
-    /// </summary>
+    // Test splitting a multi-page PDF file and check that the ouput contains the correct number of pages and that each page is valid PDF data
     [Test]
     public void SplitMultiPageFile()
     {
@@ -30,7 +27,7 @@ internal class UnitTests
 
         Assert.That(result, Is.Not.Null, "Result should not be null");
         Assert.That(result.Output, Is.Not.Null, "Output should not be null");
-        Assert.That(result.Output.Count, Is.EqualTo(pageCount), $"Should have exactly {pageCount} files");
+        Assert.That(result.Output.Count, Is.EqualTo(4), "Should have exactly 4 files");
 
         // Validate all output PDFs are valid
         var validOutput = ValidateOutputPdfs(result.Output);
@@ -111,11 +108,7 @@ internal class UnitTests
         TestContext.WriteLine($"Exception message: {exception.Message}");
     }
 
-    /// <summary>
-    /// Validates that byte arrays contain valid PDF data by attempting to open them with PdfReader
-    /// </summary>
-    /// <param name="pdfByteArrays">Collection of PDF byte arrays to validate</param>
-    /// <returns>True if all PDFs are valid, false otherwise</returns>
+    // Validates that byte arrays contain valid PDF data by attempting to open them with PdfReader
     private static bool ValidateOutputPdfs(System.Collections.Generic.IEnumerable<byte[]> pdfByteArrays)
     {
         foreach (var pdfBytes in pdfByteArrays)
@@ -154,14 +147,9 @@ internal class UnitTests
         return true;
     }
 
-    /// <summary>
-    /// Validates that pages are in the correct order by ensuring each split PDF contains different content
-    /// </summary>
-    /// <param name="pdfByteArrays">Collection of PDF byte arrays from splitting operation</param>
-    /// <returns>True if page order validation passes, false otherwise</returns>
+    // Validates that pages are in the correct order by ensuring each split PDF contains different content
     private static bool ValidatePageOrderPreserved(System.Collections.Generic.IList<byte[]> pdfByteArrays)
     {
-
         TestContext.WriteLine($"Validating page order for {pdfByteArrays.Count} pages");
 
         // Check that each page contains different content (different byte arrays)
@@ -188,14 +176,13 @@ internal class UnitTests
         var uniqueSizes = pageSizes.Select(p => p.Size).Distinct().Count();
         if (uniqueSizes == 1)
         {
-            TestContext.WriteLine("Warning: All pages have identical size - content may be very similar");
+            TestContext.WriteLine("All pages have identical size");
         }
         else
         {
-            TestContext.WriteLine($"Pages have {uniqueSizes} different sizes - indicating varied content");
+            TestContext.WriteLine($"Pages have {uniqueSizes} different sizes");
         }
 
-        TestContext.WriteLine("Page order validation completed successfully");
         return true;
     }
 }

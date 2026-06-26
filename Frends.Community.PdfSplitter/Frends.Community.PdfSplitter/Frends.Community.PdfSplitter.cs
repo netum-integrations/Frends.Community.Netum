@@ -23,15 +23,16 @@ public static class PDF
     public static Result SplitPages([PropertyTab] Input input, CancellationToken cancellationToken)
     {
         var filename = input.Path;
-        PdfDocument inputDocument = PdfReader.Open(filename, PdfDocumentOpenMode.Import);
+        using PdfDocument inputDocument = PdfReader.Open(filename, PdfDocumentOpenMode.Import);
 
-        string name = filename.Split('.')[0];
         List<byte[]> bytesList = new List<byte[]>();
 
         for (int idx = 0; idx < inputDocument.PageCount; idx++)
         {
+            cancellationToken.ThrowIfCancellationRequested();
+
             using MemoryStream stream = new MemoryStream();
-            PdfDocument outputDocument = new PdfDocument();
+            using PdfDocument outputDocument = new PdfDocument();
             outputDocument.Version = inputDocument.Version;
             outputDocument.Info.Title = string.Format("Page {0} of {1}", idx + 1, inputDocument.Info.Title);
             outputDocument.Info.Creator = inputDocument.Info.Creator;

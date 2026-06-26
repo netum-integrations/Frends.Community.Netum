@@ -1,0 +1,44 @@
+name: Build test
+
+on:
+  push:
+    branches-ignore:
+      - main
+    paths:
+      - 'Frends.Community.PdfSplitter/**'
+
+jobs:
+  build:
+    name: ReleaseTheTask
+    runs-on: windows-latest
+    
+    steps:
+    - uses: actions/checkout@v1
+
+    - name: Setup .NET SDK
+      uses: actions/setup-dotnet@v4.3.1
+      with:
+        dotnet-version: '8.0'
+
+    - name: Build
+      run: dotnet build
+        
+    - name: Test
+      run: dotnet test
+
+    - name: Pack release version of task
+      run: dotnet pack --configuration Release 
+      
+    - name: Get package name
+      id: package_name
+      run: |
+        $pkg = Get-ChildItem -Path . -Filter *.nupkg -Exclude *.symbols.nupkg -Recurse | Select-Object -First 1
+        echo "full_name=$($pkg.FullName)" >> $env:GITHUB_OUTPUT
+      
+    - name: Push to Frends Community Test Feed
+      shell: bash
+      run: |       
+        curl -X POST "${{ secrets.COMMUNITY_TASKS_API }}?feed_type=test" \
+          -H "x-api-key: ${{ secrets.FRENDS_COMMUNITY_TASKS_API_KEY }}" \
+          -H "Content-Type: application/octet-stream" \
+          --data-binary @"${{ steps.package_name.outputs.full_name }}"
