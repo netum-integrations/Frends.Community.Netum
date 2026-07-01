@@ -21,13 +21,13 @@ jobs:
         dotnet-version: '8.0'
 
     - name: Build
-      run: dotnet build
+      run: dotnet build Frends.Community.PdfSplitter/Frends.Community.PdfSplitter.sln
         
     - name: Test
-      run: dotnet test
+      run: dotnet test Frends.Community.PdfSplitter/Frends.Community.PdfSplitter.sln
 
     - name: Pack release version of task
-      run: dotnet pack --configuration Release 
+      run: dotnet pack Frends.Community.PdfSplitter/Frends.Community.PdfSplitter.sln --configuration Release 
       
     - name: Get package name
       id: package_name
